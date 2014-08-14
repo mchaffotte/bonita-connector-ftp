@@ -25,7 +25,7 @@
 			</includes>
 		</fileSet>
 		<fileSet>
-			<directory>src/main/resources</directory>
+			<directory>target/classes</directory>
 			<outputDirectory />
 			<includes>
 				<include>*.png</include>

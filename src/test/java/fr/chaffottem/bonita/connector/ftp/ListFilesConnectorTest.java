@@ -74,7 +74,7 @@ public class ListFilesConnectorTest {
     }
 
     @Test
-    public void getFilesListReturnsFilesAndDirecotries() throws Exception {
+    public void getFilesListReturnsFilesAndDirectories() throws Exception {
         final Map<String, Object> paramaters = new HashMap<String, Object>();
         paramaters.put(FTPClientConnector.HOSTNAME, "localhost");
         paramaters.put(FTPClientConnector.PORT, fakeFtpServer.getServerControlPort());
@@ -85,9 +85,7 @@ public class ListFilesConnectorTest {
 
         final List<FTPFile> files = (List<FTPFile>) result.get(ListFilesConnector.FTP_FILES);
         assertThat(files).hasSize(3);
-        assertThat(files.get(0).getName()).isEqualTo("run.exe");
-        assertThat(files.get(1).getName()).isEqualTo("docs");
-        assertThat(files.get(2).getName()).isEqualTo("images");
+        assertThat(files).extracting("name", String.class).containsOnly("run.exe", "docs", "images");
     }
 
     @Test(expected = ConnectorException.class)

@@ -11,7 +11,7 @@
 	<description>List the files and/or directories of the current directory.</description>
 
 	<jarDependencies>
-  		<jarDependency>bonita-connector-ftp-0.2.0-SNAPSHOT.jar</jarDependency>
+  		<jarDependency>bonita-connector-ftp-${project.version}.jar</jarDependency>
     	<jarDependency>commons-net-3.3.jar</jarDependency>
 	</jarDependencies>
 </implementation:connectorImplementation>
