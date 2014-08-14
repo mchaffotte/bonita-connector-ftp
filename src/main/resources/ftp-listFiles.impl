@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<implementation:connectorImplementation xmlns:implementation="http://www.bonitasoft.org/ns/connector/implementation/6.0">
+ 
+ 	<definitionId>ftp-listFiles</definitionId>
+ 	<definitionVersion>1.0.0</definitionVersion>
+ 
+ 	<implementationId>ftp-listFiles-impl</implementationId>
+ 	<implementationVersion>1.0.0</implementationVersion>
+ 	<implementationClassname>fr.chaffottem.bonita.connector.ftp.ListFilesConnector</implementationClassname>
+  
+	<description>List the files and/or directories of the current directory.</description>
+
+	<jarDependencies>
+  		<jarDependency>bonita-connector-ftp-0.2.0-SNAPSHOT.jar</jarDependency>
+    	<jarDependency>commons-net-3.3.jar</jarDependency>
+	</jarDependencies>
+</implementation:connectorImplementation>
