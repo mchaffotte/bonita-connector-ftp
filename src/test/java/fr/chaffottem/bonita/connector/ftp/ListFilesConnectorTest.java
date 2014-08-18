@@ -15,71 +15,49 @@ package fr.chaffottem.bonita.connector.ftp;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.net.ftp.FTPFile;
-import org.bonitasoft.engine.connector.ConnectorException;
-import org.bonitasoft.engine.connector.ConnectorValidationException;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockftpserver.fake.FakeFtpServer;
-import org.mockftpserver.fake.UserAccount;
-import org.mockftpserver.fake.filesystem.DirectoryEntry;
-import org.mockftpserver.fake.filesystem.FileEntry;
-import org.mockftpserver.fake.filesystem.FileSystem;
-import org.mockftpserver.fake.filesystem.WindowsFakeFileSystem;
 
 /**
  * @author Matthieu Chaffotte
  */
-public class ListFilesConnectorTest {
+public class ListFilesConnectorTest extends FTPClientConnectorTest {
 
-    private FakeFtpServer fakeFtpServer;
-
-    @Before
-    public void setUp() throws Exception {
-        fakeFtpServer = new FakeFtpServer();
-        fakeFtpServer.setServerControlPort(0);
-
-        final FileSystem fileSystem = new WindowsFakeFileSystem();
-        fileSystem.add(new DirectoryEntry("c:\\share"));
-        fileSystem.add(new FileEntry("c:\\share\\run.exe"));
-        fileSystem.add(new DirectoryEntry("c:\\share\\images"));
-        fileSystem.add(new DirectoryEntry("c:\\share\\docs"));
-        fileSystem.add(new FileEntry("c:\\share\\docs\\file1.txt", "abcdef 1234567890"));
-        fakeFtpServer.setFileSystem(fileSystem);
-
-        final UserAccount userAccount = new UserAccount("matti", "bpm", "c:\\share");
-        fakeFtpServer.addUserAccount(userAccount);
-
-        fakeFtpServer.start();
+    @Override
+    public FTPClientConnector getFTPClientConnector() {
+        return new ListFilesConnector();
     }
 
-    @After
-    public void tearDown() throws Exception {
-        fakeFtpServer.stop();
+    @Override
+    public List<String> getServerDirecotries() {
+        return Arrays.asList("c:\\share", "c:\\share\\images", "c:\\share\\docs");
     }
 
-    private Map<String, Object> execute(final Map<String, Object> paramaters) throws ConnectorValidationException, ConnectorException {
-        final ListFilesConnector connector = new ListFilesConnector();
-        connector.setInputParameters(paramaters);
-        connector.validateInputParameters();
-        connector.connect();
-        final Map<String, Object> result = connector.execute();
-        connector.disconnect();
-        return result;
+    @Override
+    public Map<String, String> getServerFiles() {
+        final Map<String, String> files = new HashMap<String, String>();
+        files.put("c:\\share\\run.exe", "");
+        files.put("c:\\share\\docs\\file1.txt", "qsfojsdfmljsgih");
+        return files;
+    }
+
+    @Override
+    public String getUserDirectory() {
+        return "c:\\share";
     }
 
     @Test
     public void getFilesListReturnsFilesAndDirectories() throws Exception {
         final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, "localhost");
-        paramaters.put(FTPClientConnector.PORT, fakeFtpServer.getServerControlPort());
-        paramaters.put(FTPClientConnector.USER_NAME, "matti");
-        paramaters.put(FTPClientConnector.PASSWORD, "bpm");
+        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        paramaters.put(FTPClientConnector.PORT, getListeningPort());
+        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
         paramaters.put(ListFilesConnector.PATHNAME, "c:\\share");
         final Map<String, Object> result = execute(paramaters);
 
@@ -88,27 +66,42 @@ public class ListFilesConnectorTest {
         assertThat(files).extracting("name", String.class).containsOnly("run.exe", "docs", "images");
     }
 
-    @Test(expected = ConnectorException.class)
-    public void authenticationFailsDueToAWrongPassword() throws Exception {
-        final ListFilesConnector connector = new ListFilesConnector();
+    @Test
+    public void getFilesListReturnsFilesAndDirectoriesUsingAnEmptyPath() throws Exception {
         final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, "localhost");
-        paramaters.put(FTPClientConnector.PORT, fakeFtpServer.getServerControlPort());
-        paramaters.put(FTPClientConnector.USER_NAME, "matti");
-        paramaters.put(FTPClientConnector.PASSWORD, "bpm2");
-        connector.setInputParameters(paramaters);
-        connector.validateInputParameters();
-        connector.connect();
-        connector.execute();
+        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        paramaters.put(FTPClientConnector.PORT, getListeningPort());
+        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        paramaters.put(ListFilesConnector.PATHNAME, "");
+        final Map<String, Object> result = execute(paramaters);
+
+        final List<FTPFile> files = (List<FTPFile>) result.get(ListFilesConnector.FTP_FILES);
+        assertThat(files).hasSize(3);
+        assertThat(files).extracting("name", String.class).containsOnly("run.exe", "docs", "images");
+    }
+
+    @Test
+    public void getFilesListReturnsFilesAndDirectoriesFromTheCurrentDirectoryWhenNotDefiningThePath() throws Exception {
+        final Map<String, Object> paramaters = new HashMap<String, Object>();
+        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        paramaters.put(FTPClientConnector.PORT, getListeningPort());
+        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        final Map<String, Object> result = execute(paramaters);
+
+        final List<FTPFile> files = (List<FTPFile>) result.get(ListFilesConnector.FTP_FILES);
+        assertThat(files).hasSize(3);
+        assertThat(files).extracting("name", String.class).containsOnly("run.exe", "docs", "images");
     }
 
     @Test
     public void getFilesListReturnsNothingWhenUserHasNoRightOnFolder() throws Exception {
         final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, "localhost");
-        paramaters.put(FTPClientConnector.PORT, fakeFtpServer.getServerControlPort());
-        paramaters.put(FTPClientConnector.USER_NAME, "matti");
-        paramaters.put(FTPClientConnector.PASSWORD, "bpm");
+        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        paramaters.put(FTPClientConnector.PORT, getListeningPort());
+        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
         paramaters.put(ListFilesConnector.PATHNAME, "c:\\private");
         final Map<String, Object> result = execute(paramaters);
 

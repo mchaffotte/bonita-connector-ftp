@@ -26,21 +26,12 @@ public class ListFilesConnector extends FTPClientConnector {
 
     public static final String PATHNAME = "pathname";
 
-    public static final String FILES = "files";
-
-    public static final String DIRECTORIES = "directories";
-
     public static final String FTP_FILES = "ftpFiles";
 
     @Override
     protected void executeFTPTask() throws IOException {
         final String pathname = (String) getInputParameter(PATHNAME);
-        FTPFile[] files;
-        if (pathname == null) {
-            files = getFTPClient().listFiles();
-        } else {
-            files = getFTPClient().listFiles(pathname, FTPFileFilters.ALL);
-        }
+        final FTPFile[] files = getFTPClient().listFiles(pathname, FTPFileFilters.ALL);
         setOutputParameter(FTP_FILES, Arrays.asList(files));
     }
 

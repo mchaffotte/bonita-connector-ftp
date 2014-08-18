@@ -38,6 +38,7 @@ public abstract class FTPClientConnector extends AbstractConnector {
 
     private FTPClient ftpClient;
 
+    @Override
     public void validateInputParameters() throws ConnectorValidationException {
         final List<String> errors = new ArrayList<String>();
         final String hostname = (String) getInputParameter(HOSTNAME);
@@ -108,7 +109,7 @@ public abstract class FTPClientConnector extends AbstractConnector {
         }
     }
 
-    public FTPClient getFTPClient() {
+    protected FTPClient getFTPClient() {
         return ftpClient;
     }
 
