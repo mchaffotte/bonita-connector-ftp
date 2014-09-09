@@ -73,7 +73,6 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(ListFilesConnector.PATHNAME, "c:\\share");
         paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList(EXEC_FILE_PATHNAME));
 
         final Map<String, Object> result = execute(paramaters);
@@ -89,7 +88,6 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(ListFilesConnector.PATHNAME, "c:\\share");
         paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList(EXEC_FILE_PATHNAME, TEXT_FILE_PATHNAME));
 
         final Map<String, Object> result = execute(paramaters);
@@ -107,9 +105,8 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(ListFilesConnector.PATHNAME, "c:\\share");
-
         paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList(DOC_DIRECTORY));
+
         final Map<String, Object> result = execute(paramaters);
 
         assertThat(getFile(TEXT_FILE_PATHNAME)).isNotNull();
@@ -123,7 +120,6 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(ListFilesConnector.PATHNAME, "c:\\share");
 
         final Map<String, Object> result = execute(paramaters);
 
