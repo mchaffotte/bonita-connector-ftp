@@ -97,6 +97,10 @@ public abstract class FTPClientConnectorTest {
         return (FileEntry) fakeFtpServer.getFileSystem().getEntry(path);
     }
 
+    public DirectoryEntry getDirectory(final String path) {
+        return (DirectoryEntry) fakeFtpServer.getFileSystem().getEntry(path);
+    }
+
     @Test(expected = ConnectorValidationException.class)
     public void validationFailsBecauseHostnameIsMissing() throws Exception {
         final Map<String, Object> paramaters = new HashMap<String, Object>();
