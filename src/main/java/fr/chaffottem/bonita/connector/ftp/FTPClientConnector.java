@@ -95,7 +95,7 @@ public abstract class FTPClientConnector extends AbstractConnector {
         }
     }
 
-    protected abstract void executeFTPTask() throws IOException;
+    protected abstract void executeFTPTask() throws IOException, ConnectorException;
 
     @Override
     public void disconnect() throws ConnectorException {
