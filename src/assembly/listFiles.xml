@@ -32,7 +32,7 @@
 			</includes>
 		</fileSet>
 		<fileSet>
-			<directory>assembly</directory>
+			<directory>studio</directory>
 			<outputDirectory />
 			<includes>
 				<include>descriptor.properties</include>
@@ -40,7 +40,7 @@
 			</includes>
 		</fileSet>
 		<fileSet>
-			<directory>assembly/listFiles</directory>
+			<directory>studio/listFiles</directory>
 			<outputDirectory />
 		</fileSet>
 	</fileSets>
