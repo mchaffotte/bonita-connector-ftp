@@ -2,7 +2,7 @@
 	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-	<id>ftp</id>
+	<id>listFiles</id>
 
 	<formats>
 		<format>zip</format>
@@ -28,11 +28,20 @@
 			<directory>target/classes</directory>
 			<outputDirectory />
 			<includes>
-				<include>*.png</include>
-				<include>*.properties</include>
-				<include>*.def</include>
-				<include>*.impl</include>
+				<include>ftp-listFiles*</include>
 			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>assembly</directory>
+			<outputDirectory />
+			<includes>
+				<include>descriptor.properties</include>
+				<include>*.png</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>assembly/listFiles</directory>
+			<outputDirectory />
 		</fileSet>
 	</fileSets>
 

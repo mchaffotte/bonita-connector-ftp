@@ -183,9 +183,10 @@
 						</goals>
 						<inherited>false</inherited>
 						<configuration>
-							<appendAssemblyId>false</appendAssemblyId>
+							<appendAssemblyId>true</appendAssemblyId>
 							<descriptors>
-								<descriptor>assembly.xml</descriptor>
+								<descriptor>src/assembly/listFiles.xml</descriptor>
+								<descriptor>src/assembly/makeDirectories.xml</descriptor>
 							</descriptors>
 							<ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
 							<tarLongFileMode>gnu</tarLongFileMode>
