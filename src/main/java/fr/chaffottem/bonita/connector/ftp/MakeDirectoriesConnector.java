@@ -34,8 +34,8 @@ public class MakeDirectoriesConnector extends FTPClientConnector {
         final Map<String, Boolean> status = new HashMap<String, Boolean>();
         if (pathnames != null) {
             for (final String pathname : pathnames) {
-                final boolean fileDeleted = getFTPClient().makeDirectory(pathname);
-                status.put(pathname, fileDeleted);
+                final boolean directoryCreated = getFTPClient().makeDirectory(pathname);
+                status.put(pathname, directoryCreated);
             }
         }
         setOutputParameter(STATUS, status);
