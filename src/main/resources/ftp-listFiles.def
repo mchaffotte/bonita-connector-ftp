@@ -18,7 +18,7 @@
 
 	<output name="ftpFiles" type="java.util.List" />
 
-	<page id="connexionConfigPage">
+	<page id="connectionConfigPage">
 		<widget id="hostname" inputName="hostname" xsi:type="definition:Text" />
 		<widget id="port" inputName="port" xsi:type="definition:Text" />
 		<widget id="authentication" optional="true" xsi:type="definition:Group">
