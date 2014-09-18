@@ -34,8 +34,8 @@ public class RemoveDirectoriesConnector extends FTPClientConnector {
         final Map<String, Boolean> status = new HashMap<String, Boolean>();
         if (pathnames != null) {
             for (final String pathname : pathnames) {
-                final boolean fileDeleted = getFTPClient().removeDirectory(pathname);
-                status.put(pathname, fileDeleted);
+                final boolean directoryDeleted = getFTPClient().removeDirectory(pathname);
+                status.put(pathname, directoryDeleted);
             }
         }
         setOutputParameter(STATUS, status);
