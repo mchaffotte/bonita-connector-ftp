@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definition:ConnectorDefinition
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1">
+
+	<id>ftp-deleteFiles</id>
+	<version>1.0.0</version>
+
+	<icon>ftp.png</icon>
+
+	<category id="net" icon="network.png" />
+	<category id="ftp" parentCategoryId="net" icon="ftp.png" />
+
+	<input name="hostname" type="java.lang.String" defaultValue="localhost" mandatory="true" />
+	<input name="port" type="java.lang.Integer" defaultValue="21" mandatory="true" />
+	<input name="userName" type="java.lang.String" />
+	<input name="password" type="java.lang.String" />
+	<input name="pathnames" type="java.util.List" />
+
+	<output name="status" type="java.util.Map" />
+
+	<page id="connectionConfigPage">
+		<widget id="hostname" inputName="hostname" xsi:type="definition:Text" />
+		<widget id="port" inputName="port" xsi:type="definition:Text" />
+		<widget id="authentication" optional="true" xsi:type="definition:Group">
+			<widget id="userName" inputName="userName" xsi:type="definition:Text" />
+			<widget id="password" inputName="password" xsi:type="definition:Password" />
+		</widget>
+	</page>
+	<page id="contentPage">
+		<widget id="pathnames" inputName="pathnames" xsi:type="definition:List" />
+	</page>
+</definition:ConnectorDefinition>
