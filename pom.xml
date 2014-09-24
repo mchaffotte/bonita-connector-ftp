@@ -187,6 +187,7 @@
 							<descriptors>
 								<descriptor>src/assembly/listFiles.xml</descriptor>
 								<descriptor>src/assembly/makeDirectories.xml</descriptor>
+								<descriptor>src/assembly/deleteFiles.xml</descriptor>
 							</descriptors>
 							<ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
 							<tarLongFileMode>gnu</tarLongFileMode>
