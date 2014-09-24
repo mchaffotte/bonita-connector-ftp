@@ -6,11 +6,12 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    ListFilesConnectorTest.class,
-    DeleteFilesConnectorTest.class,
-    RemoveDirectoriesConnectorTest.class,
-    MakeDirectoriesConnectorTest.class,
-    UploadFilesConnectorTest.class
+        ListFilesConnectorTest.class,
+        DeleteFilesConnectorTest.class,
+        RemoveDirectoriesConnectorTest.class,
+        MakeDirectoriesConnectorTest.class,
+        UploadFilesConnectorTest.class,
+        DownloadFilesConnectorTest.class
 })
 public class FTPConnectorTests {
 

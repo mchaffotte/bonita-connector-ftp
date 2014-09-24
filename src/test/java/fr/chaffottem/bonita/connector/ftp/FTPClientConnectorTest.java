@@ -147,7 +147,7 @@ public abstract class FTPClientConnectorTest {
     @Test(expected = ConnectorException.class)
     public void connectionFailsDueToAnUnknownHost() throws Exception {
         final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, "host");
+        paramaters.put(FTPClientConnector.HOSTNAME, "somewhere");
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
 
         execute(paramaters);
