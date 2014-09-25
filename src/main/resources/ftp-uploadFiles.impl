@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<implementation:connectorImplementation xmlns:implementation="http://www.bonitasoft.org/ns/connector/implementation/6.0">
+ 
+ 	<definitionId>ftp-uploadFiles</definitionId>
+ 	<definitionVersion>1.0.0</definitionVersion>
+ 
+ 	<implementationId>ftp-uploadFiles-impl</implementationId>
+ 	<implementationVersion>1.0.0</implementationVersion>
+ 	<implementationClassname>fr.chaffottem.bonita.connector.ftp.UploadFilesConnector</implementationClassname>
+  
+	<description>Upload documents to remote files.</description>
+
+	<jarDependencies>
+  		<jarDependency>bonita-connector-ftp-${project.version}.jar</jarDependency>
+    	<jarDependency>commons-net-3.3.jar</jarDependency>
+	</jarDependencies>
+</implementation:connectorImplementation>
