@@ -8,7 +8,7 @@
  	<implementationVersion>1.0.0</implementationVersion>
  	<implementationClassname>fr.chaffottem.bonita.connector.ftp.RemoveDirectoriesConnector</implementationClassname>
   
-	<description>Create remote directories.</description>
+	<description>Remove remote directories.</description>
 
 	<jarDependencies>
   		<jarDependency>bonita-connector-ftp-${project.version}.jar</jarDependency>
