@@ -29,7 +29,7 @@ public class RemoveDirectoriesConnectorTest extends FTPClientConnectorTest {
 
     @Override
     public List<String> getServerDirecotries() {
-        return Arrays.asList("c:\\share", "c:\\share\\images", "c:\\share\\docs");
+        return Arrays.asList("c:\\share", "c:\\share\\images", "c:\\share\\docs", "c:\\share\\docs\\tales");
     }
 
     @Override
@@ -37,6 +37,7 @@ public class RemoveDirectoriesConnectorTest extends FTPClientConnectorTest {
         final Map<String, String> files = new HashMap<String, String>();
         files.put("c:\\share\\run.exe", "");
         files.put("c:\\share\\docs\\file1.txt", "qsfojsdfmljsgih");
+        files.put("c:\\share\\docs\\tales\\first.txt", "Once upon a time ...");
         return files;
     }
 
@@ -76,7 +77,7 @@ public class RemoveDirectoriesConnectorTest extends FTPClientConnectorTest {
     }
 
     @Test
-    public void removeAFullDirectoryDoesAnything() throws Exception {
+    public void removeAFullDirectory() throws Exception {
         final Map<String, Object> paramaters = new HashMap<String, Object>();
         paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
@@ -86,9 +87,9 @@ public class RemoveDirectoriesConnectorTest extends FTPClientConnectorTest {
 
         final Map<String, Object> result = execute(paramaters);
 
-        assertThat(getDirectory("c:\\share\\docs")).isNotNull();
-        assertThat(getFile("c:\\share\\docs\\file1.txt")).isNotNull();
-        assertThat(getStatusOfEntry(result, "c:\\share\\docs")).isFalse();
+        assertThat(getDirectory("c:\\share\\docs")).isNull();
+        assertThat(getFile("c:\\share\\docs\\file1.txt")).isNull();
+        assertThat(getStatusOfEntry(result, "c:\\share\\docs")).isTrue();
     }
 
     @Test

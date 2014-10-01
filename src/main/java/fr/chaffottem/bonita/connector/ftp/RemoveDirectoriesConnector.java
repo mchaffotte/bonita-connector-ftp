@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.net.ftp.FTPFile;
+
 /**
  * @author Matthieu Chaffotte
  */
@@ -34,11 +36,29 @@ public class RemoveDirectoriesConnector extends FTPClientConnector {
         final Map<String, Boolean> status = new HashMap<String, Boolean>();
         if (pathnames != null) {
             for (final String pathname : pathnames) {
-                final boolean directoryDeleted = getFTPClient().removeDirectory(pathname);
+                final boolean directoryDeleted = removeDirectory(pathname);
                 status.put(pathname, directoryDeleted);
             }
         }
         setOutputParameter(STATUS, status);
+    }
+
+    private boolean removeDirectory(final String pathname) throws IOException {
+        final FTPFile[] ftpFiles = getFTPClient().listFiles(pathname);
+        getFTPClient().changeWorkingDirectory(pathname);
+        for (final FTPFile ftpFile : ftpFiles) {
+            final String currentFileName = ftpFile.getName();
+            if (!(".".equals(currentFileName) || "..".equals(currentFileName))) {
+                if (ftpFile.isDirectory()) {
+                    final StringBuilder pathBuilder = new StringBuilder();
+                    pathBuilder.append(pathname).append("/").append(currentFileName);
+                    removeDirectory(pathBuilder.toString());
+                } else {
+                    getFTPClient().deleteFile(currentFileName);
+                }
+            }
+        }
+        return getFTPClient().removeDirectory(pathname);
     }
 
 }
