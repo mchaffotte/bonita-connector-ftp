@@ -3,11 +3,12 @@
 
 	<groupId>fr.mchaffotte.bonita.connectors</groupId>
 	<artifactId>bonita-connector-ftp</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.4.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<connector.resources>${basedir}/target/extra-resources</connector.resources>
 	</properties>
 
 	<dependencies>
@@ -61,22 +62,6 @@
 	</dependencies>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>**/*.impl</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
-				<excludes>
-					<exclude>**/*.impl</exclude>
-				</excludes>
-			</resource>
-		</resources>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -176,6 +161,38 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${connector.resources}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>studio</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>**/*.impl</include>
+									</includes>
+								</resource>
+								<resource>
+									<directory>studio</directory>
+									<filtering>false</filtering>
+									<excludes>
+										<exclude>**/*.impl</exclude>
+									</excludes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

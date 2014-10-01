@@ -25,13 +25,6 @@
 			</includes>
 		</fileSet>
 		<fileSet>
-			<directory>target/classes</directory>
-			<outputDirectory />
-			<includes>
-				<include>ftp-deleteFiles*</include>
-			</includes>
-		</fileSet>
-		<fileSet>
 			<directory>studio</directory>
 			<outputDirectory />
 			<includes>
@@ -40,7 +33,7 @@
 			</includes>
 		</fileSet>
 		<fileSet>
-			<directory>studio/deleteFiles</directory>
+			<directory>${connector.resources}/deleteFiles</directory>
 			<outputDirectory />
 		</fileSet>
 	</fileSets>
