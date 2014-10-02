@@ -37,7 +37,7 @@ public abstract class FTPClientConnector extends AbstractConnector {
 
     public static final String PASSWORD = "password";
 
-    public static final String TRANSFER_TYPE = "transfertType";
+    public static final String TRANSFER_TYPE = "transferType";
 
     private FTPClient ftpClient;
 
@@ -62,7 +62,7 @@ public abstract class FTPClientConnector extends AbstractConnector {
         final String transfertType = (String) getInputParameter(TRANSFER_TYPE);
         if (transfertType != null) {
             if (!("ASCII".equalsIgnoreCase(transfertType) || "binary".equalsIgnoreCase(transfertType))) {
-                errors.add("Only ASCII and binary are supported as transfert type");
+                errors.add("Only ASCII and binary are supported as transfer type");
             }
         }
 

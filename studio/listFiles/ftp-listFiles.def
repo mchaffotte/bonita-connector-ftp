@@ -14,7 +14,7 @@
 	<input name="port" type="java.lang.Integer" defaultValue="21" mandatory="true" />
 	<input name="userName" type="java.lang.String" />
 	<input name="password" type="java.lang.String" />
-	<input name="transfertType" type="java.lang.String"/>
+	<input name="transferType" type="java.lang.String"/>
 	<input name="pathname" type="java.lang.String" />
 
 	<output name="ftpFiles" type="java.util.List" />
@@ -26,7 +26,7 @@
 			<widget id="userName" inputName="userName" xsi:type="definition:Text" />
 			<widget id="password" inputName="password" xsi:type="definition:Password" />
 		</widget>
-		<widget id="transfertType" inputName="transfertType" xsi:type="definition:RadioGroup">
+		<widget id="transferType" inputName="transferType" xsi:type="definition:RadioGroup">
 			<choices>ASCII</choices>
 			<choices>Binary</choices>
 		</widget>
