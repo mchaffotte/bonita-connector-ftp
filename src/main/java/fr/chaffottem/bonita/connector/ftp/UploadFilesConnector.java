@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.net.ftp.FTP;
 import org.bonitasoft.engine.api.ProcessAPI;
 import org.bonitasoft.engine.bpm.document.Document;
 import org.bonitasoft.engine.bpm.document.DocumentNotFoundException;
@@ -38,7 +37,6 @@ public class UploadFilesConnector extends FTPClientConnector {
     @SuppressWarnings("unchecked")
     @Override
     protected void executeFTPTask() throws IOException, ConnectorException {
-        getFTPClient().setFileType(FTP.BINARY_FILE_TYPE);
         final Map<String, String> documents = (Map<String, String>) getInputParameter(DOCUMENTS, new HashMap<String, String>());
         final Map<String, Boolean> status = new HashMap<String, Boolean>();
         for (final Entry<String, String> document : documents.entrySet()) {

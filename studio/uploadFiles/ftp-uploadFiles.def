@@ -13,6 +13,7 @@
 	<input name="port" type="java.lang.Integer" defaultValue="21" mandatory="true" />
 	<input name="userName" type="java.lang.String" />
 	<input name="password" type="java.lang.String" />
+	<input name="transfertType" type="java.lang.String"/>
 	<input name="documents" type="java.util.Map" />
 
 	<output name="status" type="java.util.Map" />
@@ -23,6 +24,10 @@
 		<widget id="authentication" optional="true" xsi:type="definition:Group">
 			<widget id="userName" inputName="userName" xsi:type="definition:Text" />
 			<widget id="password" inputName="password" xsi:type="definition:Password" />
+		</widget>
+		<widget id="transfertType" inputName="transfertType" xsi:type="definition:RadioGroup">
+			<choices>ASCII</choices>
+			<choices>Binary</choices>
 		</widget>
 	</page>
 	<page id="contentPage">

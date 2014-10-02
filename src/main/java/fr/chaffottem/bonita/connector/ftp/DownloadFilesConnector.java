@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.commons.net.ftp.FTP;
 import org.apache.tika.Tika;
 import org.bonitasoft.engine.bpm.document.DocumentValue;
 import org.bonitasoft.engine.connector.ConnectorException;
@@ -42,7 +41,6 @@ public class DownloadFilesConnector extends FTPClientConnector {
     @SuppressWarnings("unchecked")
     @Override
     protected void executeFTPTask() throws IOException, ConnectorException {
-        getFTPClient().setFileType(FTP.BINARY_FILE_TYPE);
         final List<String> files = (List<String>) getInputParameter(FILE_PATHS, new HashMap<String, String>());
         final List<DocumentValue> documentValues = new ArrayList<DocumentValue>();
         for (final String file : files) {

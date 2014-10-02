@@ -144,6 +144,36 @@ public abstract class FTPClientConnectorTest {
         validate(paramaters);
     }
 
+    @Test
+    public void validationIsOkWithASCIITransfertType() throws Exception {
+        final Map<String, Object> paramaters = new HashMap<String, Object>();
+        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        paramaters.put(FTPClientConnector.PORT, 21);
+        paramaters.put(FTPClientConnector.TRANSFER_TYPE, "ASCII");
+
+        validate(paramaters);
+    }
+
+    @Test
+    public void validationIsOkWithBinaryTransfertType() throws Exception {
+        final Map<String, Object> paramaters = new HashMap<String, Object>();
+        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        paramaters.put(FTPClientConnector.PORT, 21);
+        paramaters.put(FTPClientConnector.TRANSFER_TYPE, "binary");
+
+        validate(paramaters);
+    }
+
+    @Test(expected = ConnectorValidationException.class)
+    public void validationFailsDueToAnUnknownTransferType() throws Exception {
+        final Map<String, Object> paramaters = new HashMap<String, Object>();
+        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        paramaters.put(FTPClientConnector.PORT, 21);
+        paramaters.put(FTPClientConnector.TRANSFER_TYPE, "unknown");
+
+        validate(paramaters);
+    }
+
     @Test(expected = ConnectorException.class)
     public void connectionFailsDueToAnUnknownHost() throws Exception {
         final Map<String, Object> paramaters = new HashMap<String, Object>();

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definition:ConnectorDefinition
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1">
+<definition:ConnectorDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1">
 
 	<id>ftp-deleteFiles</id>
 	<version>1.0.0</version>
@@ -14,6 +13,7 @@
 	<input name="port" type="java.lang.Integer" defaultValue="21" mandatory="true" />
 	<input name="userName" type="java.lang.String" />
 	<input name="password" type="java.lang.String" />
+	<input name="transfertType" type="java.lang.String"/>
 	<input name="pathnames" type="java.util.List" />
 
 	<output name="status" type="java.util.Map" />
@@ -24,6 +24,10 @@
 		<widget id="authentication" optional="true" xsi:type="definition:Group">
 			<widget id="userName" inputName="userName" xsi:type="definition:Text" />
 			<widget id="password" inputName="password" xsi:type="definition:Password" />
+		</widget>
+		<widget id="transfertType" inputName="transfertType" xsi:type="definition:RadioGroup">
+			<choices>ASCII</choices>
+			<choices>Binary</choices>
 		</widget>
 	</page>
 	<page id="contentPage">
