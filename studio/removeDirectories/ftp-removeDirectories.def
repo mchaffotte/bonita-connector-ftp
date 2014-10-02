@@ -14,7 +14,7 @@
 	<input name="port" type="java.lang.Integer" defaultValue="21" mandatory="true" />
 	<input name="userName" type="java.lang.String" />
 	<input name="password" type="java.lang.String" />
-	<input name="transferType" type="java.lang.String"/>
+	<input name="transferType" type="java.lang.String" defaultValue="Binary" />
 	<input name="pathnames" type="java.util.List" />
 
 	<output name="status" type="java.util.Map" />
