@@ -145,7 +145,7 @@ public abstract class FTPClientConnectorTest {
     }
 
     @Test
-    public void validationIsOkWithASCIITransfertType() throws Exception {
+    public void validationIsOkWithASCIITransferType() throws Exception {
         final Map<String, Object> paramaters = new HashMap<String, Object>();
         paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
         paramaters.put(FTPClientConnector.PORT, 21);
@@ -155,7 +155,7 @@ public abstract class FTPClientConnectorTest {
     }
 
     @Test
-    public void validationIsOkWithBinaryTransfertType() throws Exception {
+    public void validationIsOkWithBinaryTransferType() throws Exception {
         final Map<String, Object> paramaters = new HashMap<String, Object>();
         paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
         paramaters.put(FTPClientConnector.PORT, 21);
@@ -170,6 +170,36 @@ public abstract class FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
         paramaters.put(FTPClientConnector.PORT, 21);
         paramaters.put(FTPClientConnector.TRANSFER_TYPE, "unknown");
+
+        validate(paramaters);
+    }
+
+    @Test
+    public void validationIsOkWithActiveTransferMode() throws Exception {
+        final Map<String, Object> paramaters = new HashMap<String, Object>();
+        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        paramaters.put(FTPClientConnector.PORT, 21);
+        paramaters.put(FTPClientConnector.TRANSFER_MODE, "Active");
+
+        validate(paramaters);
+    }
+
+    @Test
+    public void validationIsOkWithPassiveTransferMode() throws Exception {
+        final Map<String, Object> paramaters = new HashMap<String, Object>();
+        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        paramaters.put(FTPClientConnector.PORT, 21);
+        paramaters.put(FTPClientConnector.TRANSFER_MODE, "Passive");
+
+        validate(paramaters);
+    }
+
+    @Test(expected = ConnectorValidationException.class)
+    public void validationFailsDueToAnUnknownTransfermode() throws Exception {
+        final Map<String, Object> paramaters = new HashMap<String, Object>();
+        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        paramaters.put(FTPClientConnector.PORT, 21);
+        paramaters.put(FTPClientConnector.TRANSFER_MODE, "unknown");
 
         validate(paramaters);
     }

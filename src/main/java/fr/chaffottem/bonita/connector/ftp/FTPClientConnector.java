@@ -39,6 +39,8 @@ public abstract class FTPClientConnector extends AbstractConnector {
 
     public static final String TRANSFER_TYPE = "transferType";
 
+    public static final String TRANSFER_MODE = "transferMode";
+
     private FTPClient ftpClient;
 
     @Override
@@ -58,11 +60,16 @@ public abstract class FTPClientConnector extends AbstractConnector {
         } else if (port > 65535) {
             errors.add("The port is greater than 65535");
         }
-
         final String transfertType = (String) getInputParameter(TRANSFER_TYPE);
         if (transfertType != null) {
             if (!("ASCII".equalsIgnoreCase(transfertType) || "binary".equalsIgnoreCase(transfertType))) {
-                errors.add("Only ASCII and binary are supported as transfer type");
+                errors.add("Only ASCII and binary are supported as transfer types");
+            }
+        }
+        final String transfertMode = (String) getInputParameter(TRANSFER_MODE);
+        if (transfertMode != null) {
+            if (!("active".equalsIgnoreCase(transfertMode) || "passive".equalsIgnoreCase(transfertMode))) {
+                errors.add("Only active and passive are supported as transfer modes");
             }
         }
 
@@ -95,12 +102,7 @@ public abstract class FTPClientConnector extends AbstractConnector {
             if (login) {
                 final int reply = ftpClient.getReplyCode();
                 if (FTPReply.isPositiveCompletion(reply)) {
-                    final String transferType = (String) getInputParameter(TRANSFER_TYPE, "binary");
-                    if ("ascii".equalsIgnoreCase(transferType)) {
-                        ftpClient.setFileType(FTP.ASCII_FILE_TYPE);
-                    } else {
-                        ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-                    }
+                    configureClient();
                     executeFTPTask();
                 }
             } else {
@@ -108,6 +110,21 @@ public abstract class FTPClientConnector extends AbstractConnector {
             }
         } catch (final IOException ioe) {
             throw new ConnectorException(ioe);
+        }
+    }
+
+    private void configureClient() throws IOException {
+        final String transferType = (String) getInputParameter(TRANSFER_TYPE, "binary");
+        if ("ascii".equalsIgnoreCase(transferType)) {
+            ftpClient.setFileType(FTP.ASCII_FILE_TYPE);
+        } else {
+            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+        }
+        final String transferMode = (String) getInputParameter(TRANSFER_MODE, "passive");
+        if ("active".equalsIgnoreCase(transferMode)) {
+            ftpClient.enterLocalActiveMode();
+        } else {
+            ftpClient.enterLocalPassiveMode();
         }
     }
 

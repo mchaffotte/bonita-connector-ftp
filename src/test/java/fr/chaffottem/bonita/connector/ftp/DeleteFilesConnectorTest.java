@@ -73,6 +73,7 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        paramaters.put(FTPClientConnector.TRANSFER_MODE, "Active");
         paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList(EXEC_FILE_PATHNAME));
 
         final Map<String, Object> result = execute(paramaters);
