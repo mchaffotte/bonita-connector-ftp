@@ -9,7 +9,7 @@ import org.junit.runners.Suite.SuiteClasses;
         ListFilesConnectorTest.class,
         DeleteFilesConnectorTest.class,
         RemoveDirectoriesConnectorTest.class,
-        MakeDirectoriesConnectorTest.class,
+        CreateDirectoriesConnectorTest.class,
         UploadFilesConnectorTest.class,
         DownloadFilesConnectorTest.class
 })

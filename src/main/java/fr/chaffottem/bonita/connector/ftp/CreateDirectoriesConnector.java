@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * @author Matthieu Chaffotte
  */
-public class MakeDirectoriesConnector extends FTPClientConnector {
+public class CreateDirectoriesConnector extends FTPClientConnector {
 
     public static final String PATHNAMES = "pathnames";
 

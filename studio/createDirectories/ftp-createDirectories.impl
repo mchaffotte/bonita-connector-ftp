@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <implementation:connectorImplementation xmlns:implementation="http://www.bonitasoft.org/ns/connector/implementation/6.0">
  
- 	<definitionId>ftp-makeDirectories</definitionId>
+ 	<definitionId>ftp-createDirectories</definitionId>
  	<definitionVersion>1.0.0</definitionVersion>
  
- 	<implementationId>ftp-makeDirectories-impl</implementationId>
+ 	<implementationId>ftp-createDirectories-impl</implementationId>
  	<implementationVersion>1.0.0</implementationVersion>
- 	<implementationClassname>fr.chaffottem.bonita.connector.ftp.MakeDirectoriesConnector</implementationClassname>
+ 	<implementationClassname>fr.chaffottem.bonita.connector.ftp.CreateDirectoriesConnector</implementationClassname>
   
 	<description>Create remote directories.</description>
 

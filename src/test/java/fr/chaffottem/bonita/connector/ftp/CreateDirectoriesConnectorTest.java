@@ -25,7 +25,7 @@ import org.junit.Test;
 /**
  * @author Matthieu Chaffotte
  */
-public class MakeDirectoriesConnectorTest extends FTPClientConnectorTest {
+public class CreateDirectoriesConnectorTest extends FTPClientConnectorTest {
 
     @Override
     public List<String> getServerDirecotries() {
@@ -47,7 +47,7 @@ public class MakeDirectoriesConnectorTest extends FTPClientConnectorTest {
 
     @Override
     public FTPClientConnector getFTPClientConnector() {
-        return new MakeDirectoriesConnector();
+        return new CreateDirectoriesConnector();
     }
 
     private Boolean getStatusOfEntry(final Map<String, Object> result, final String pathname) {
@@ -57,7 +57,7 @@ public class MakeDirectoriesConnectorTest extends FTPClientConnectorTest {
 
     @SuppressWarnings("unchecked")
     private Map<String, Boolean> getStatus(final Map<String, Object> result) {
-        return (Map<String, Boolean>) result.get(MakeDirectoriesConnector.STATUS);
+        return (Map<String, Boolean>) result.get(CreateDirectoriesConnector.STATUS);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class MakeDirectoriesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(MakeDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\music"));
+        paramaters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\music"));
 
         final Map<String, Object> result = execute(paramaters);
 
@@ -82,7 +82,7 @@ public class MakeDirectoriesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(MakeDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\images"));
+        paramaters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\images"));
 
         final Map<String, Object> result = execute(paramaters);
 
@@ -109,7 +109,7 @@ public class MakeDirectoriesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(MakeDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\music", "c:\\share\\music\\albums"));
+        paramaters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\music", "c:\\share\\music\\albums"));
 
         final Map<String, Object> result = execute(paramaters);
 
