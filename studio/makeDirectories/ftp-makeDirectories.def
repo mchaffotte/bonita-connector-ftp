@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definition:ConnectorDefinition
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1">
+<definition:ConnectorDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1">
 
 	<id>ftp-makeDirectories</id>
 	<version>1.0.0</version>
 
 	<icon>ftp.png</icon>
 
-	<category id="net" icon="network.png" />
-	<category id="ftp" parentCategoryId="net" icon="ftp.png" />
+	<category id="ftp" icon="ftp.png" />
 
 	<input name="hostname" type="java.lang.String" defaultValue="localhost" mandatory="true" />
 	<input name="port" type="java.lang.Integer" defaultValue="21" mandatory="true" />

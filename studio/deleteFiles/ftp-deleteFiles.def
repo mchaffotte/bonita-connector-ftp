@@ -6,8 +6,7 @@
 
 	<icon>ftp.png</icon>
 
-	<category id="net" icon="network.png" />
-	<category id="ftp" parentCategoryId="net" icon="ftp.png" />
+	<category id="ftp" icon="ftp.png" />
 
 	<input name="hostname" type="java.lang.String" defaultValue="localhost" mandatory="true" />
 	<input name="port" type="java.lang.Integer" defaultValue="21" mandatory="true" />
