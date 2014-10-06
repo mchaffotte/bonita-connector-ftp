@@ -144,13 +144,13 @@ public class UploadFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(UploadFilesConnector.DOCUMENTS, Arrays.asList("processFile"));
         final Document document = mock(Document.class);
         when(processAPI.getLastDocument(46887, "processFile")).thenReturn(document);
+        when(document.getName()).thenReturn("processFile");
         when(document.hasContent()).thenReturn(false);
         when(document.getContentStorageId()).thenReturn("bcvxft");
-        when(document.getContentFileName()).thenReturn("file2.bin");
 
         final Map<String, Object> result = execute(paramaters);
 
-        final FileEntry file = getFile("c:\\share\\docs\\file2.bin");
+        final FileEntry file = getFile("c:\\share\\docs\\processFile");
         assertThat(file).isNotNull();
         final byte[] fileContent = getFileContent(file);
         assertThat(fileContent).isEqualTo(new byte[0]);

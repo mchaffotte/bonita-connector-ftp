@@ -65,10 +65,11 @@ public class UploadFilesConnector extends FTPClientConnector {
 
     private String getFileName(final Document document) {
         String fileName;
-        if (document.getContentFileName() != null) {
-            fileName = document.getContentFileName();
-        } else {
+        final String contentFileName = document.getContentFileName();
+        if (contentFileName == null || "".equals(contentFileName.trim())) {
             fileName = document.getName();
+        } else {
+            fileName = contentFileName;
         }
         return fileName;
     }
