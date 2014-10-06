@@ -17,8 +17,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.bonitasoft.engine.api.ProcessAPI;
 import org.bonitasoft.engine.bpm.document.Document;
@@ -30,6 +30,8 @@ import org.bonitasoft.engine.connector.ConnectorException;
  */
 public class UploadFilesConnector extends FTPClientConnector {
 
+    public static final String DIRECTORY_PATH = "directoryPath";
+
     public static final String DOCUMENTS = "documents";
 
     public static final String STATUS = "status";
@@ -37,20 +39,54 @@ public class UploadFilesConnector extends FTPClientConnector {
     @SuppressWarnings("unchecked")
     @Override
     protected void executeFTPTask() throws IOException, ConnectorException {
-        final Map<String, String> documents = (Map<String, String>) getInputParameter(DOCUMENTS, new HashMap<String, String>());
+        final List<String> documentNames = (List<String>) getInputParameter(DOCUMENTS, new HashMap<String, String>());
         final Map<String, Boolean> status = new HashMap<String, Boolean>();
-        for (final Entry<String, String> document : documents.entrySet()) {
-            final boolean done = uploadDocument(document);
-            status.put(document.getKey(), done);
+        final String directory = (String) getInputParameter(DIRECTORY_PATH);
+        getFTPClient().changeWorkingDirectory(directory);
+        for (final String documentName : documentNames) {
+            final boolean done = uploadDocument(documentName);
+            status.put(documentName, done);
         }
         setOutputParameter(STATUS, status);
     }
 
-    private ByteArrayInputStream getDocumentContent(final String documentName) throws ConnectorException {
+    private boolean uploadDocument(final String documentName) throws ConnectorException, IOException {
+        final Document document = getDocument(documentName);
+        final InputStream inputStream = getDocumentContent(document);
+        try {
+            final String fileName = getFileName(document);
+            return getFTPClient().storeFile(fileName, inputStream);
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+    }
+
+    private String getFileName(final Document document) {
+        String fileName;
+        if (document.getContentFileName() != null) {
+            fileName = document.getContentFileName();
+        } else {
+            fileName = document.getName();
+        }
+        return fileName;
+    }
+
+    private Document getDocument(final String documentName) throws ConnectorException {
         final ProcessAPI processAPI = getAPIAccessor().getProcessAPI();
         final long processInstanceId = getExecutionContext().getProcessInstanceId();
         try {
-            final Document document = processAPI.getLastDocument(processInstanceId, documentName);
+            return processAPI.getLastDocument(processInstanceId, documentName);
+        } catch (final DocumentNotFoundException dnfe) {
+            throw new ConnectorException(dnfe);
+        }
+
+    }
+
+    private InputStream getDocumentContent(final Document document) throws ConnectorException {
+        final ProcessAPI processAPI = getAPIAccessor().getProcessAPI();
+        try {
             if (document.hasContent()) {
                 return new ByteArrayInputStream(processAPI.getDocumentContent(document.getContentStorageId()));
             } else {
@@ -58,18 +94,6 @@ public class UploadFilesConnector extends FTPClientConnector {
             }
         } catch (final DocumentNotFoundException dnfe) {
             throw new ConnectorException(dnfe);
-        }
-    }
-
-    private boolean uploadDocument(final Entry<String, String> document) throws ConnectorException, IOException {
-        InputStream inputStream = null;
-        try {
-            inputStream = getDocumentContent(document.getKey());
-            return getFTPClient().storeFile(document.getValue(), inputStream);
-        } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
         }
     }
 

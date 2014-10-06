@@ -14,7 +14,8 @@
 	<input name="password" type="java.lang.String" />
 	<input name="transferType" type="java.lang.String" defaultValue="Binary" />
 	<input name="transferMode" type="java.lang.String" defaultValue="Passive" />
-	<input name="documents" type="java.util.Map" />
+	<input name="directoryPath" type="java.lang.String" />
+	<input name="documents" type="java.util.List" />
 
 	<output name="status" type="java.util.Map" />
 
@@ -35,9 +36,7 @@
 		</widget>
 	</page>
 	<page id="contentPage">
-		<widget id="documents" inputName="documents" xsi:type="definition:Array" cols="2" fixedCols="true">
-			<colsCaption>Document Name</colsCaption>
-			<colsCaption>Remote File Path</colsCaption>
-		</widget>
+		<widget id="directoryPath" inputName="directoryPath" xsi:type="definition:Text" />
+		<widget id="documents" inputName="documents" xsi:type="definition:List" />
 	</page>
 </definition:ConnectorDefinition>

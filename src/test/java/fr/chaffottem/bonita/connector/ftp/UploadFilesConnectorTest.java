@@ -97,29 +97,40 @@ public class UploadFilesConnectorTest extends FTPClientConnectorTest {
         }
     }
 
+    private Boolean getStatusOfFile(final Map<String, Object> result, final String pathname) {
+        final Map<String, Boolean> status = getStatus(result);
+        return status.get(pathname);
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<String, Boolean> getStatus(final Map<String, Object> result) {
+        return (Map<String, Boolean>) result.get(DeleteFilesConnector.STATUS);
+    }
+
     @Test
     public void uploadADocument() throws Exception {
+        final byte[] content = new byte[] { 0, 1, 0, 1, 0, 0, 0, 0, 1, 0 };
         final Map<String, Object> paramaters = new HashMap<String, Object>();
         paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        final Map<String, String> documents = new HashMap<String, String>();
-        documents.put("processFile", "c:\\share\\docs\\file2.txt");
-        paramaters.put(UploadFilesConnector.DOCUMENTS, documents);
+        paramaters.put(UploadFilesConnector.DIRECTORY_PATH, "c:\\share\\docs");
+        paramaters.put(UploadFilesConnector.DOCUMENTS, Arrays.asList("processFile"));
         final Document document = mock(Document.class);
         when(processAPI.getLastDocument(46887, "processFile")).thenReturn(document);
         when(document.hasContent()).thenReturn(true);
         when(document.getContentStorageId()).thenReturn("bcvxft");
-        final byte[] content = new byte[] { 0, 1, 0, 1, 0, 0, 0, 0, 1, 0 };
         when(processAPI.getDocumentContent("bcvxft")).thenReturn(content);
+        when(document.getContentFileName()).thenReturn("file2.bin");
 
         final Map<String, Object> result = execute(paramaters);
 
-        final FileEntry file = getFile("c:\\share\\docs\\file2.txt");
+        final FileEntry file = getFile("c:\\share\\docs\\file2.bin");
         assertThat(file).isNotNull();
         final byte[] fileContent = getFileContent(file);
         assertThat(fileContent).isEqualTo(content);
+        assertThat(getStatusOfFile(result, "processFile")).isTrue();
     }
 
     @Test
@@ -129,19 +140,21 @@ public class UploadFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        final Map<String, String> documents = new HashMap<String, String>();
-        documents.put("processFile", "c:\\share\\docs\\file2.txt");
-        paramaters.put(UploadFilesConnector.DOCUMENTS, documents);
+        paramaters.put(UploadFilesConnector.DIRECTORY_PATH, "c:\\share\\docs");
+        paramaters.put(UploadFilesConnector.DOCUMENTS, Arrays.asList("processFile"));
         final Document document = mock(Document.class);
         when(processAPI.getLastDocument(46887, "processFile")).thenReturn(document);
         when(document.hasContent()).thenReturn(false);
+        when(document.getContentStorageId()).thenReturn("bcvxft");
+        when(document.getContentFileName()).thenReturn("file2.bin");
 
         final Map<String, Object> result = execute(paramaters);
 
-        final FileEntry file = getFile("c:\\share\\docs\\file2.txt");
+        final FileEntry file = getFile("c:\\share\\docs\\file2.bin");
         assertThat(file).isNotNull();
         final byte[] fileContent = getFileContent(file);
         assertThat(fileContent).isEqualTo(new byte[0]);
+        assertThat(getStatusOfFile(result, "processFile")).isTrue();
     }
 
     @Test(expected = ConnectorException.class)
@@ -151,9 +164,8 @@ public class UploadFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        final Map<String, String> documents = new HashMap<String, String>();
-        documents.put("processFile", "c:\\share\\docs\\file2.txt");
-        paramaters.put(UploadFilesConnector.DOCUMENTS, documents);
+        paramaters.put(UploadFilesConnector.DIRECTORY_PATH, "c:\\share\\docs");
+        paramaters.put(UploadFilesConnector.DOCUMENTS, Arrays.asList("processFile"));
         when(processAPI.getLastDocument(46887, "processFile")).thenThrow(new DocumentNotFoundException(null));
 
         execute(paramaters);
