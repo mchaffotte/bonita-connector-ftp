@@ -27,12 +27,6 @@ import org.junit.Test;
  */
 public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
 
-    private static final String DOC_DIRECTORY = "c:\\share\\docs";
-
-    private static final String TEXT_FILE_PATHNAME = "c:\\share\\docs\\file1.txt";
-
-    private static final String EXEC_FILE_PATHNAME = "c:\\share\\run.exe";
-
     @Override
     public FTPClientConnector getFTPClientConnector() {
         return new DeleteFilesConnector();
@@ -40,14 +34,14 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
 
     @Override
     public List<String> getServerDirecotries() {
-        return Arrays.asList("c:\\share", "c:\\share\\images", DOC_DIRECTORY);
+        return Arrays.asList("c:\\share", "c:\\share\\images", "c:\\share\\docs");
     }
 
     @Override
     public Map<String, String> getServerFiles() {
         final Map<String, String> files = new HashMap<String, String>();
-        files.put(EXEC_FILE_PATHNAME, "");
-        files.put(TEXT_FILE_PATHNAME, "qsfojsdfmljsgih");
+        files.put("c:\\share\\run.exe", "");
+        files.put("c:\\share\\docs\\file1.txt", "qsfojsdfmljsgih");
         return files;
     }
 
@@ -74,12 +68,12 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
         paramaters.put(FTPClientConnector.TRANSFER_MODE, "Active");
-        paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList(EXEC_FILE_PATHNAME));
+        paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList("run.exe"));
 
         final Map<String, Object> result = execute(paramaters);
 
-        assertThat(getFile(EXEC_FILE_PATHNAME)).isNull();
-        assertThat(getStatusOfFile(result, EXEC_FILE_PATHNAME)).isTrue();
+        assertThat(getFile("c:\\share\\run.exe")).isNull();
+        assertThat(getStatusOfFile(result, "run.exe")).isTrue();
     }
 
     @Test
@@ -89,14 +83,14 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList(EXEC_FILE_PATHNAME, TEXT_FILE_PATHNAME));
+        paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList("run.exe", "docs/file1.txt"));
 
         final Map<String, Object> result = execute(paramaters);
 
-        assertThat(getFile(EXEC_FILE_PATHNAME)).isNull();
-        assertThat(getFile(TEXT_FILE_PATHNAME)).isNull();
-        assertThat(getStatusOfFile(result, EXEC_FILE_PATHNAME)).isTrue();
-        assertThat(getStatusOfFile(result, TEXT_FILE_PATHNAME)).isTrue();
+        assertThat(getFile("c:\\share\\run.exe")).isNull();
+        assertThat(getFile("c:\\share\\docs\\file1.txt")).isNull();
+        assertThat(getStatusOfFile(result, "run.exe")).isTrue();
+        assertThat(getStatusOfFile(result, "docs/file1.txt")).isTrue();
     }
 
     @Test
@@ -106,12 +100,12 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList(DOC_DIRECTORY));
+        paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList("docs"));
 
         final Map<String, Object> result = execute(paramaters);
 
-        assertThat(getFile(TEXT_FILE_PATHNAME)).isNotNull();
-        assertThat(getStatusOfFile(result, DOC_DIRECTORY)).isFalse();
+        assertThat(getFile("c:\\share\\docs\\file1.txt")).isNotNull();
+        assertThat(getStatusOfFile(result, "docs")).isFalse();
     }
 
     @Test
@@ -124,8 +118,8 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
 
         final Map<String, Object> result = execute(paramaters);
 
-        assertThat(getFile(EXEC_FILE_PATHNAME)).isNotNull();
-        assertThat(getFile(TEXT_FILE_PATHNAME)).isNotNull();
+        assertThat(getFile("c:\\share\\run.exe")).isNotNull();
+        assertThat(getFile("c:\\share\\docs\\file1.txt")).isNotNull();
         assertThat(getStatus(result)).isEmpty();
     }
 

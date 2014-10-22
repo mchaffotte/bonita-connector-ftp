@@ -115,7 +115,7 @@ public class UploadFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(UploadFilesConnector.DIRECTORY_PATH, "c:\\share\\docs");
+        paramaters.put(UploadFilesConnector.DIRECTORY_PATH, "docs");
         paramaters.put(UploadFilesConnector.DOCUMENTS, Arrays.asList("processFile"));
         final Document document = mock(Document.class);
         when(processAPI.getLastDocument(46887, "processFile")).thenReturn(document);
@@ -140,7 +140,7 @@ public class UploadFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(UploadFilesConnector.DIRECTORY_PATH, "c:\\share\\docs");
+        paramaters.put(UploadFilesConnector.DIRECTORY_PATH, "docs");
         paramaters.put(UploadFilesConnector.DOCUMENTS, Arrays.asList("processFile"));
         final Document document = mock(Document.class);
         when(processAPI.getLastDocument(46887, "processFile")).thenReturn(document);
@@ -164,7 +164,7 @@ public class UploadFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(UploadFilesConnector.DIRECTORY_PATH, "c:\\share\\docs");
+        paramaters.put(UploadFilesConnector.DIRECTORY_PATH, "docs");
         paramaters.put(UploadFilesConnector.DOCUMENTS, Arrays.asList("processFile"));
         when(processAPI.getLastDocument(46887, "processFile")).thenThrow(new DocumentNotFoundException(null));
 

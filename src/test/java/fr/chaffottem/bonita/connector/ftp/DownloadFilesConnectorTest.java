@@ -88,7 +88,7 @@ public class DownloadFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
         paramaters.put(FTPClientConnector.TRANSFER_TYPE, "ascii");
         final List<String> filePaths = new ArrayList<String>();
-        filePaths.add("c:\\share\\docs\\file1.txt");
+        filePaths.add("docs/file1.txt");
         paramaters.put(DownloadFilesConnector.FILE_PATHS, filePaths);
         final FileEntry file = getFile("c:\\share\\docs\\file1.txt");
         final byte[] fileContent = getFileContent(file);

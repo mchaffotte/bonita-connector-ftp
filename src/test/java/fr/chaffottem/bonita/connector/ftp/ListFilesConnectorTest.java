@@ -58,16 +58,16 @@ public class ListFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(ListFilesConnector.PATHNAME, "c:\\share");
+        paramaters.put(ListFilesConnector.PATHNAME, "docs");
         final Map<String, Object> result = execute(paramaters);
 
         final List<FTPFile> files = (List<FTPFile>) result.get(ListFilesConnector.FTP_FILES);
-        assertThat(files).hasSize(3);
-        assertThat(files).extracting("name", String.class).containsOnly("run.exe", "docs", "images");
+        assertThat(files).hasSize(1);
+        assertThat(files).extracting("name", String.class).containsOnly("file1.txt");
     }
 
     @Test
-    public void getFilesListReturnsFilesAndDirectoriesUsingAnEmptyPath() throws Exception {
+    public void getFilesListReturnsFilesAndDirectoriesUsingRootPath() throws Exception {
         final Map<String, Object> paramaters = new HashMap<String, Object>();
         paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
@@ -102,7 +102,21 @@ public class ListFilesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(ListFilesConnector.PATHNAME, "c:\\private");
+        paramaters.put(ListFilesConnector.PATHNAME, "private");
+        final Map<String, Object> result = execute(paramaters);
+
+        final List<FTPFile> files = (List<FTPFile>) result.get(ListFilesConnector.FTP_FILES);
+        assertThat(files).hasSize(0);
+    }
+
+    @Test
+    public void getNoFilesListReturnsFilesAndDirectories() throws Exception {
+        final Map<String, Object> paramaters = new HashMap<String, Object>();
+        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        paramaters.put(FTPClientConnector.PORT, getListeningPort());
+        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        paramaters.put(ListFilesConnector.PATHNAME, "images");
         final Map<String, Object> result = execute(paramaters);
 
         final List<FTPFile> files = (List<FTPFile>) result.get(ListFilesConnector.FTP_FILES);

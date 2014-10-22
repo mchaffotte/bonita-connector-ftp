@@ -67,12 +67,12 @@ public class CreateDirectoriesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\music"));
+        paramaters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("music"));
 
         final Map<String, Object> result = execute(paramaters);
 
         assertThat(getDirectory("c:\\share\\music")).isNotNull();
-        assertThat(getStatusOfEntry(result, "c:\\share\\music")).isTrue();
+        assertThat(getStatusOfEntry(result, "music")).isTrue();
     }
 
     @Test
@@ -82,12 +82,12 @@ public class CreateDirectoriesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\images"));
+        paramaters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("images"));
 
         final Map<String, Object> result = execute(paramaters);
 
         assertThat(getDirectory("c:\\share\\images")).isNotNull();
-        assertThat(getStatusOfEntry(result, "c:\\share\\images")).isFalse();
+        assertThat(getStatusOfEntry(result, "images")).isFalse();
     }
 
     @Test
@@ -109,13 +109,13 @@ public class CreateDirectoriesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\music", "c:\\share\\music\\albums"));
+        paramaters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("music", "music/albums"));
 
         final Map<String, Object> result = execute(paramaters);
 
         assertThat(getDirectory("c:\\share\\music")).isNotNull();
         assertThat(getDirectory("c:\\share\\music\\albums")).isNotNull();
-        assertThat(getStatusOfEntry(result, "c:\\share\\music\\albums")).isTrue();
+        assertThat(getStatusOfEntry(result, "music/albums")).isTrue();
     }
 
 }

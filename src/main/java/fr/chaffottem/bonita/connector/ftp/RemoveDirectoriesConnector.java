@@ -43,22 +43,18 @@ public class RemoveDirectoriesConnector extends FTPClientConnector {
         setOutputParameter(STATUS, status);
     }
 
-    private boolean removeDirectory(final String pathname) throws IOException {
-        final FTPFile[] ftpFiles = getFTPClient().listFiles(pathname);
-        getFTPClient().changeWorkingDirectory(pathname);
-        for (final FTPFile ftpFile : ftpFiles) {
-            final String currentFileName = ftpFile.getName();
-            if (!(".".equals(currentFileName) || "..".equals(currentFileName))) {
-                if (ftpFile.isDirectory()) {
-                    final StringBuilder pathBuilder = new StringBuilder();
-                    pathBuilder.append(pathname).append("/").append(currentFileName);
-                    removeDirectory(pathBuilder.toString());
-                } else {
-                    getFTPClient().deleteFile(currentFileName);
-                }
+    private boolean removeDirectory(final String pathDir) throws IOException {
+        final FTPFile[] files = getFTPClient().listFiles(pathDir);
+        for (final FTPFile file : files) {
+            final StringBuilder pathBuilder = new StringBuilder(pathDir);
+            pathBuilder.append("/").append(file.getName());
+            if (file.isDirectory()) {
+                removeDirectory(pathBuilder.toString());
+            } else {
+                getFTPClient().deleteFile(pathBuilder.toString());
             }
         }
-        return getFTPClient().removeDirectory(pathname);
+        return getFTPClient().removeDirectory(pathDir);
     }
 
 }

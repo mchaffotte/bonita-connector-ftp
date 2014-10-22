@@ -83,13 +83,13 @@ public class RemoveDirectoriesConnectorTest extends FTPClientConnectorTest {
         paramaters.put(FTPClientConnector.PORT, getListeningPort());
         paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
         paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(RemoveDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\docs"));
+        paramaters.put(RemoveDirectoriesConnector.PATHNAMES, Arrays.asList("docs"));
 
         final Map<String, Object> result = execute(paramaters);
 
         assertThat(getDirectory("c:\\share\\docs")).isNull();
         assertThat(getFile("c:\\share\\docs\\file1.txt")).isNull();
-        assertThat(getStatusOfEntry(result, "c:\\share\\docs")).isTrue();
+        assertThat(getStatusOfEntry(result, "docs")).isTrue();
     }
 
     @Test
