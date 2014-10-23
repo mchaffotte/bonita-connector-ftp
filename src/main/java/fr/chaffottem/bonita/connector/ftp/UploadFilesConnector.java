@@ -82,7 +82,6 @@ public class UploadFilesConnector extends FTPClientConnector {
         } catch (final DocumentNotFoundException dnfe) {
             throw new ConnectorException(dnfe);
         }
-
     }
 
     private InputStream getDocumentContent(final Document document) throws ConnectorException {

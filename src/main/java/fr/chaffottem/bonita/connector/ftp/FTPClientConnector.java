@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
+import org.apache.commons.net.ftp.FTPSClient;
 import org.bonitasoft.engine.connector.AbstractConnector;
 import org.bonitasoft.engine.connector.ConnectorException;
 import org.bonitasoft.engine.connector.ConnectorValidationException;
@@ -40,6 +41,12 @@ public abstract class FTPClientConnector extends AbstractConnector {
     public static final String TRANSFER_TYPE = "transferType";
 
     public static final String TRANSFER_MODE = "transferMode";
+
+    public static final String FTPS = "ftps";
+
+    public static final String SECURITY_PROTOCOL = "securityProtocol";
+
+    public static final String SECURITY_MODE = "securityMode";
 
     private FTPClient ftpClient;
 
@@ -72,6 +79,12 @@ public abstract class FTPClientConnector extends AbstractConnector {
                 errors.add("Only active and passive are supported as transfer modes");
             }
         }
+        final String securityMode = (String) getInputParameter(SECURITY_MODE);
+        if (securityMode != null) {
+            if (!("implicit".equalsIgnoreCase(securityMode) || "explicit".equalsIgnoreCase(securityMode))) {
+                errors.add("Only explicit and implicit are supported as security modes");
+            }
+        }
 
         if (!errors.isEmpty()) {
             throw new ConnectorValidationException(this, errors);
@@ -80,7 +93,7 @@ public abstract class FTPClientConnector extends AbstractConnector {
 
     @Override
     public void connect() throws ConnectorException {
-        ftpClient = new FTPClient();
+        ftpClient = build();
         try {
             final String hostname = (String) getInputParameter(HOSTNAME);
             final Integer port = (Integer) getInputParameter(PORT);
@@ -88,6 +101,28 @@ public abstract class FTPClientConnector extends AbstractConnector {
         } catch (final IOException ioe) {
             throw new ConnectorException(ioe);
         }
+    }
+
+    protected FTPClient build() {
+        final Boolean ftps = (Boolean) getInputParameter(FTPS, false);
+        if (!ftps) {
+            return new FTPClient();
+        } else {
+            final String securityProtocol = (String) getInputParameter(SECURITY_PROTOCOL, "TLS");
+            final boolean isImplicit = isImplicit();
+            return new FTPSClient(securityProtocol, isImplicit);
+        }
+    }
+
+    protected boolean isImplicit() {
+        final String securityMode = (String) getInputParameter(SECURITY_MODE, "implicit");
+        boolean isImplicit;
+        if ("implicit".equalsIgnoreCase(securityMode)) {
+            isImplicit = true;
+        } else {
+            isImplicit = false;
+        }
+        return isImplicit;
     }
 
     @Override

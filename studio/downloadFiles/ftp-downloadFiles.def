@@ -14,6 +14,9 @@
 	<input name="password" type="java.lang.String" />
 	<input name="transferType" type="java.lang.String" defaultValue="Binary" />
 	<input name="transferMode" type="java.lang.String" defaultValue="Passive" />
+	<input name="ftps" type="java.lang.Boolean" defaultValue="false" />
+	<input name="securityProtocol" type="java.lang.String" defaultValue="TLS" />
+	<input name="securityMode" type="java.lang.String" defaultValue="Implicit" />
 	<input name="filePaths" type="java.util.List" />
 
 	<output name="documentValues" type="java.util.List" />
@@ -32,6 +35,16 @@
 		<widget id="transferMode" inputName="transferMode" xsi:type="definition:RadioGroup">
 			<choices>Active</choices>
 			<choices>Passive</choices>
+		</widget>
+		<widget id="security" optional="true" xsi:type="definition:Group">
+			<widget id="ftps" inputName="ftps" xsi:type="definition:Checkbox" />
+			<widget id="securityProtocol" inputName="securityProtocol" xsi:type="definition:Select">
+				<items>TLS</items>
+			</widget>
+			<widget id="securityMode" inputName="securityMode" xsi:type="definition:RadioGroup">
+				<choices>Implicit</choices>
+				<choices>Explicit</choices>
+			</widget>
 		</widget>
 	</page>
 	<page id="contentPage">
