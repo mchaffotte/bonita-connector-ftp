@@ -22,9 +22,6 @@ import java.util.Map;
 
 import org.junit.Test;
 
-/**
- * @author Matthieu Chaffotte
- */
 public class RemoveDirectoriesConnectorTest extends FTPClientConnectorTest {
 
     @Override

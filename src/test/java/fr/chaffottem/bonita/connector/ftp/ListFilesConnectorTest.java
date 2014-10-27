@@ -23,9 +23,6 @@ import java.util.Map;
 import org.apache.commons.net.ftp.FTPFile;
 import org.junit.Test;
 
-/**
- * @author Matthieu Chaffotte
- */
 public class ListFilesConnectorTest extends FTPClientConnectorTest {
 
     @Override

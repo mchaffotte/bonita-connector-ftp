@@ -30,9 +30,6 @@ import org.mockftpserver.fake.filesystem.FileEntry;
 import org.mockftpserver.fake.filesystem.FileSystem;
 import org.mockftpserver.fake.filesystem.WindowsFakeFileSystem;
 
-/**
- * @author Matthieu Chaffotte
- */
 public abstract class FTPClientConnectorTest {
 
     public static final String HOSTNAME = "localhost";

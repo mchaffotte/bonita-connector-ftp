@@ -38,9 +38,6 @@ import org.mockftpserver.fake.filesystem.FileEntry;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-/**
- * @author Matthieu Chaffotte
- */
 @RunWith(MockitoJUnitRunner.class)
 public class UploadFilesConnectorTest extends FTPClientConnectorTest {
 
