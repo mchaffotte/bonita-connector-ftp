@@ -59,14 +59,14 @@ public class CreateDirectoriesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void makeADirectory() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("music"));
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("music"));
 
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> result = execute(parameters);
 
         assertThat(getDirectory("c:\\share\\music")).isNotNull();
         assertThat(getStatusOfEntry(result, "music")).isTrue();
@@ -74,14 +74,14 @@ public class CreateDirectoriesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void makeAnExistingDirectory() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("images"));
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("images"));
 
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> result = execute(parameters);
 
         assertThat(getDirectory("c:\\share\\images")).isNotNull();
         assertThat(getStatusOfEntry(result, "images")).isFalse();
@@ -89,26 +89,26 @@ public class CreateDirectoriesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void makeNothing() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
 
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> result = execute(parameters);
         assertThat(getStatus(result)).isEmpty();
     }
 
     @Test
     public void makeASubDirectory() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("music", "music/albums"));
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(CreateDirectoriesConnector.PATHNAMES, Arrays.asList("music", "music/albums"));
 
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> result = execute(parameters);
 
         assertThat(getDirectory("c:\\share\\music")).isNotNull();
         assertThat(getDirectory("c:\\share\\music\\albums")).isNotNull();

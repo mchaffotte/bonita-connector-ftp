@@ -50,13 +50,13 @@ public class ListFilesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void getFilesListReturnsFilesAndDirectories() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(ListFilesConnector.PATHNAME, "docs");
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(ListFilesConnector.PATHNAME, "docs");
+        final Map<String, Object> result = execute(parameters);
 
         final List<FTPFile> files = (List<FTPFile>) result.get(ListFilesConnector.FTP_FILES);
         assertThat(files).hasSize(1);
@@ -65,13 +65,13 @@ public class ListFilesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void getFilesListReturnsFilesAndDirectoriesUsingRootPath() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(ListFilesConnector.PATHNAME, "");
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(ListFilesConnector.PATHNAME, "");
+        final Map<String, Object> result = execute(parameters);
 
         final List<FTPFile> files = (List<FTPFile>) result.get(ListFilesConnector.FTP_FILES);
         assertThat(files).hasSize(3);
@@ -80,12 +80,12 @@ public class ListFilesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void getFilesListReturnsFilesAndDirectoriesFromTheCurrentDirectoryWhenNotDefiningThePath() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        final Map<String, Object> result = execute(parameters);
 
         final List<FTPFile> files = (List<FTPFile>) result.get(ListFilesConnector.FTP_FILES);
         assertThat(files).hasSize(3);
@@ -94,13 +94,13 @@ public class ListFilesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void getFilesListReturnsNothingWhenUserHasNoRightOnFolder() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(ListFilesConnector.PATHNAME, "private");
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(ListFilesConnector.PATHNAME, "private");
+        final Map<String, Object> result = execute(parameters);
 
         final List<FTPFile> files = (List<FTPFile>) result.get(ListFilesConnector.FTP_FILES);
         assertThat(files).hasSize(0);
@@ -108,13 +108,13 @@ public class ListFilesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void getNoFilesListReturnsFilesAndDirectories() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(ListFilesConnector.PATHNAME, "images");
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(ListFilesConnector.PATHNAME, "images");
+        final Map<String, Object> result = execute(parameters);
 
         final List<FTPFile> files = (List<FTPFile>) result.get(ListFilesConnector.FTP_FILES);
         assertThat(files).hasSize(0);

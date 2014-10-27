@@ -59,15 +59,15 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void deleteAFile() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(FTPClientConnector.TRANSFER_MODE, "Active");
-        paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList("run.exe"));
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(FTPClientConnector.TRANSFER_MODE, "Active");
+        parameters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList("run.exe"));
 
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> result = execute(parameters);
 
         assertThat(getFile("c:\\share\\run.exe")).isNull();
         assertThat(getStatusOfFile(result, "run.exe")).isTrue();
@@ -75,14 +75,14 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void deleteFiles() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList("run.exe", "docs/file1.txt"));
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList("run.exe", "docs/file1.txt"));
 
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> result = execute(parameters);
 
         assertThat(getFile("c:\\share\\run.exe")).isNull();
         assertThat(getFile("c:\\share\\docs\\file1.txt")).isNull();
@@ -92,14 +92,14 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void deleteADirectoryDoesNothing() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList("docs"));
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(DeleteFilesConnector.PATHNAMES, Arrays.asList("docs"));
 
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> result = execute(parameters);
 
         assertThat(getFile("c:\\share\\docs\\file1.txt")).isNotNull();
         assertThat(getStatusOfFile(result, "docs")).isFalse();
@@ -107,13 +107,13 @@ public class DeleteFilesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void deleteNothing() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
 
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> result = execute(parameters);
 
         assertThat(getFile("c:\\share\\run.exe")).isNotNull();
         assertThat(getFile("c:\\share\\docs\\file1.txt")).isNotNull();

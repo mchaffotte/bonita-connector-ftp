@@ -69,12 +69,12 @@ public abstract class FTPClientConnectorTest {
         return fakeFtpServer.getServerControlPort();
     }
 
-    public void validate(final Map<String, Object> paramaters) throws ConnectorValidationException {
-        validateAndGetConnector(paramaters);
+    public void validate(final Map<String, Object> parameters) throws ConnectorValidationException {
+        validateAndGetConnector(parameters);
     }
 
-    public Map<String, Object> execute(final Map<String, Object> paramaters) throws ConnectorValidationException, ConnectorException {
-        final FTPClientConnector connector = validateAndGetConnector(paramaters);
+    public Map<String, Object> execute(final Map<String, Object> parameters) throws ConnectorValidationException, ConnectorException {
+        final FTPClientConnector connector = validateAndGetConnector(parameters);
         try {
             connector.connect();
             return connector.execute();
@@ -83,9 +83,9 @@ public abstract class FTPClientConnectorTest {
         }
     }
 
-    private FTPClientConnector validateAndGetConnector(final Map<String, Object> paramaters) throws ConnectorValidationException {
+    private FTPClientConnector validateAndGetConnector(final Map<String, Object> parameters) throws ConnectorValidationException {
         final FTPClientConnector connector = getFTPClientConnector();
-        connector.setInputParameters(paramaters);
+        connector.setInputParameters(parameters);
         connector.validateInputParameters();
         return connector;
     }
@@ -100,136 +100,166 @@ public abstract class FTPClientConnectorTest {
 
     @Test(expected = ConnectorValidationException.class)
     public void validationFailsBecauseHostnameIsMissing() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
 
-        validate(paramaters);
+        validate(parameters);
     }
 
     @Test(expected = ConnectorValidationException.class)
     public void validationFailsBecauseHostnameIsEmpty() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, "");
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, "");
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
 
-        validate(paramaters);
+        validate(parameters);
     }
 
     @Test(expected = ConnectorValidationException.class)
     public void validationFailsBecausePortNumberIsMissing() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
 
-        validate(paramaters);
+        validate(parameters);
     }
 
     @Test(expected = ConnectorValidationException.class)
     public void validationFailsDueToATooSmallPortNumber() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, -1);
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, -1);
 
-        validate(paramaters);
+        validate(parameters);
     }
 
     @Test(expected = ConnectorValidationException.class)
     public void validationFailsDueToAnOversizedPortNumber() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, 65536);
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, 65536);
 
-        validate(paramaters);
+        validate(parameters);
     }
 
     @Test
     public void validationIsOkWithASCIITransferType() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, 21);
-        paramaters.put(FTPClientConnector.TRANSFER_TYPE, "ASCII");
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, 21);
+        parameters.put(FTPClientConnector.TRANSFER_TYPE, "ASCII");
 
-        validate(paramaters);
+        validate(parameters);
     }
 
     @Test
     public void validationIsOkWithBinaryTransferType() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, 21);
-        paramaters.put(FTPClientConnector.TRANSFER_TYPE, "binary");
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, 21);
+        parameters.put(FTPClientConnector.TRANSFER_TYPE, "binary");
 
-        validate(paramaters);
+        validate(parameters);
     }
 
     @Test(expected = ConnectorValidationException.class)
     public void validationFailsDueToAnUnknownTransferType() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, 21);
-        paramaters.put(FTPClientConnector.TRANSFER_TYPE, "unknown");
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, 21);
+        parameters.put(FTPClientConnector.TRANSFER_TYPE, "unknown");
 
-        validate(paramaters);
+        validate(parameters);
     }
 
     @Test
     public void validationIsOkWithActiveTransferMode() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, 21);
-        paramaters.put(FTPClientConnector.TRANSFER_MODE, "Active");
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, 21);
+        parameters.put(FTPClientConnector.TRANSFER_MODE, "Active");
 
-        validate(paramaters);
+        validate(parameters);
     }
 
     @Test
     public void validationIsOkWithPassiveTransferMode() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, 21);
-        paramaters.put(FTPClientConnector.TRANSFER_MODE, "Passive");
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, 21);
+        parameters.put(FTPClientConnector.TRANSFER_MODE, "Passive");
 
-        validate(paramaters);
+        validate(parameters);
     }
 
     @Test(expected = ConnectorValidationException.class)
-    public void validationFailsDueToAnUnknownTransfermode() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, 21);
-        paramaters.put(FTPClientConnector.TRANSFER_MODE, "unknown");
+    public void validationFailsDueToAnUnknownTransferMode() throws Exception {
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, 21);
+        parameters.put(FTPClientConnector.TRANSFER_MODE, "unknown");
 
-        validate(paramaters);
+        validate(parameters);
+    }
+
+    @Test
+    public void validationIsOkWithExplicitSecurityMode() throws Exception {
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, 21);
+        parameters.put(FTPClientConnector.SECURITY_MODE, "Explicit");
+
+        validate(parameters);
+    }
+
+    @Test
+    public void validationIsOkWithImplicitSecurityMode() throws Exception {
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, 21);
+        parameters.put(FTPClientConnector.SECURITY_MODE, "Implicit");
+
+        validate(parameters);
+    }
+
+    @Test(expected = ConnectorValidationException.class)
+    public void validationFailsDueToAnUnknownSecurityMode() throws Exception {
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, 21);
+        parameters.put(FTPClientConnector.SECURITY_MODE, "unknown");
+
+        validate(parameters);
     }
 
     @Test(expected = ConnectorException.class)
     public void connectionFailsDueToAnUnknownHost() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, "somewhere");
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, "somewhere");
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
 
-        execute(paramaters);
+        execute(parameters);
     }
 
     @Test(expected = ConnectorException.class)
     public void authenticationFailsDueToAWrongUserName() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, "matt");
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, "matt");
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
 
-        execute(paramaters);
+        execute(parameters);
     }
 
     @Test(expected = ConnectorException.class)
     public void authenticationFailsDueToAWrongPassword() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, "pass");
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, "pass");
 
-        execute(paramaters);
+        execute(parameters);
     }
 
     public abstract Map<String, String> getServerFiles();

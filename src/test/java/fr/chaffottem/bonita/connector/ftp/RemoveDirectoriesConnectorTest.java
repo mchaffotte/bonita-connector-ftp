@@ -60,14 +60,14 @@ public class RemoveDirectoriesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void removeAnEmptyDirectory() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(RemoveDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\images"));
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(RemoveDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\images"));
 
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> result = execute(parameters);
 
         assertThat(getDirectory("c:\\share\\images")).isNull();
         assertThat(getStatusOfEntry(result, "c:\\share\\images")).isTrue();
@@ -75,14 +75,14 @@ public class RemoveDirectoriesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void removeAFullDirectory() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(RemoveDirectoriesConnector.PATHNAMES, Arrays.asList("docs"));
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(RemoveDirectoriesConnector.PATHNAMES, Arrays.asList("docs"));
 
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> result = execute(parameters);
 
         assertThat(getDirectory("c:\\share\\docs")).isNull();
         assertThat(getFile("c:\\share\\docs\\file1.txt")).isNull();
@@ -91,27 +91,27 @@ public class RemoveDirectoriesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void removeAnUnexistingDirectory() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(RemoveDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\video"));
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(RemoveDirectoriesConnector.PATHNAMES, Arrays.asList("c:\\share\\video"));
 
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> result = execute(parameters);
 
         assertThat(getStatusOfEntry(result, "c:\\share\\video")).isFalse();
     }
 
     @Test
     public void removeNothing() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
 
-        final Map<String, Object> result = execute(paramaters);
+        final Map<String, Object> result = execute(parameters);
         assertThat(getStatus(result)).isEmpty();
     }
 

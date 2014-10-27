@@ -94,20 +94,20 @@ public class DownloadFilesConnectorTest extends FTPClientConnectorTest {
 
     @Test
     public void downloadADocument() throws Exception {
-        final Map<String, Object> paramaters = new HashMap<String, Object>();
-        paramaters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
-        paramaters.put(FTPClientConnector.PORT, getListeningPort());
-        paramaters.put(FTPClientConnector.USER_NAME, USER_NAME);
-        paramaters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        paramaters.put(FTPClientConnector.TRANSFER_TYPE, "ascii");
+        final Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put(FTPClientConnector.HOSTNAME, HOSTNAME);
+        parameters.put(FTPClientConnector.PORT, getListeningPort());
+        parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
+        parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
+        parameters.put(FTPClientConnector.TRANSFER_TYPE, "ascii");
         final List<String> filePaths = new ArrayList<String>();
         filePaths.add("docs/file1.txt");
-        paramaters.put(DownloadFilesConnector.FILE_PATHS, filePaths);
+        parameters.put(DownloadFilesConnector.FILE_PATHS, filePaths);
         final FileEntry file = getFile("c:\\share\\docs\\file1.txt");
         final byte[] fileContent = getFileContent(file);
         final DocumentValue expected = new DocumentValue(fileContent, "text/plain", "file1.txt");
 
-        final Map<String, Object> execute = execute(paramaters);
+        final Map<String, Object> execute = execute(parameters);
 
         final List<DocumentValue> docs = (List<DocumentValue>) execute.get(DownloadFilesConnector.DOCUMENT_VALUES);
         assertThat(docs.get(0)).isEqualTo(expected);
