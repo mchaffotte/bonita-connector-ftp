@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <implementation:connectorImplementation xmlns:implementation="http://www.bonitasoft.org/ns/connector/implementation/6.0">
  
- 	<definitionId>ftp-uploadFiles</definitionId>
+ 	<definitionId>ftp-uploadDocumentsToDirectory</definitionId>
  	<definitionVersion>1.0.0</definitionVersion>
  
- 	<implementationId>ftp-uploadFiles-impl</implementationId>
+ 	<implementationId>ftp-uploadDocumentsToDirectory-impl</implementationId>
  	<implementationVersion>1.0.0</implementationVersion>
- 	<implementationClassname>fr.chaffottem.bonita.connector.ftp.UploadFilesConnector</implementationClassname>
+ 	<implementationClassname>fr.chaffottem.bonita.connector.ftp.UploadDocumentsToDirectoryConnector</implementationClassname>
   
 	<description>Upload documents to remote files.</description>
 

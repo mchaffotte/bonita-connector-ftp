@@ -2,7 +2,7 @@
 	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-	<id>uploadFiles</id>
+	<id>uploadFilesToDirectory</id>
 
 	<formats>
 		<format>zip</format>
@@ -33,7 +33,7 @@
 			</includes>
 		</fileSet>
 		<fileSet>
-			<directory>${connector.resources}/uploadFiles</directory>
+			<directory>${connector.resources}/uploadFilesToDirectory</directory>
 			<outputDirectory />
 		</fileSet>
 	</fileSets>

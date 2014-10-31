@@ -39,7 +39,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UploadFilesConnectorTest extends FTPClientConnectorTest {
+public class UploadDocumentsToDirectoryConnectorTest extends FTPClientConnectorTest {
 
     @Mock
     private APIAccessor apiAccessor;
@@ -79,7 +79,7 @@ public class UploadFilesConnectorTest extends FTPClientConnectorTest {
 
     @Override
     public FTPClientConnector getFTPClientConnector() {
-        final UploadFilesConnector connector = new UploadFilesConnector();
+        final UploadDocumentsToDirectoryConnector connector = new UploadDocumentsToDirectoryConnector();
         connector.setAPIAccessor(apiAccessor);
         connector.setExecutionContext(executionContext);
         return connector;
@@ -112,8 +112,8 @@ public class UploadFilesConnectorTest extends FTPClientConnectorTest {
         parameters.put(FTPClientConnector.PORT, getListeningPort());
         parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
         parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        parameters.put(UploadFilesConnector.DIRECTORY_PATH, "docs");
-        parameters.put(UploadFilesConnector.DOCUMENTS, Arrays.asList("processFile"));
+        parameters.put(UploadDocumentsToDirectoryConnector.DIRECTORY_PATH, "docs");
+        parameters.put(UploadDocumentsToDirectoryConnector.DOCUMENTS, Arrays.asList("processFile"));
         final Document document = mock(Document.class);
         when(processAPI.getLastDocument(46887, "processFile")).thenReturn(document);
         when(document.hasContent()).thenReturn(true);
@@ -137,8 +137,8 @@ public class UploadFilesConnectorTest extends FTPClientConnectorTest {
         parameters.put(FTPClientConnector.PORT, getListeningPort());
         parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
         parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        parameters.put(UploadFilesConnector.DIRECTORY_PATH, "docs");
-        parameters.put(UploadFilesConnector.DOCUMENTS, Arrays.asList("processFile"));
+        parameters.put(UploadDocumentsToDirectoryConnector.DIRECTORY_PATH, "docs");
+        parameters.put(UploadDocumentsToDirectoryConnector.DOCUMENTS, Arrays.asList("processFile"));
         final Document document = mock(Document.class);
         when(processAPI.getLastDocument(46887, "processFile")).thenReturn(document);
         when(document.getName()).thenReturn("processFile");
@@ -161,8 +161,8 @@ public class UploadFilesConnectorTest extends FTPClientConnectorTest {
         parameters.put(FTPClientConnector.PORT, getListeningPort());
         parameters.put(FTPClientConnector.USER_NAME, USER_NAME);
         parameters.put(FTPClientConnector.PASSWORD, PASSWORD);
-        parameters.put(UploadFilesConnector.DIRECTORY_PATH, "docs");
-        parameters.put(UploadFilesConnector.DOCUMENTS, Arrays.asList("processFile"));
+        parameters.put(UploadDocumentsToDirectoryConnector.DIRECTORY_PATH, "docs");
+        parameters.put(UploadDocumentsToDirectoryConnector.DOCUMENTS, Arrays.asList("processFile"));
         when(processAPI.getLastDocument(46887, "processFile")).thenThrow(new DocumentNotFoundException(null));
 
         execute(parameters);

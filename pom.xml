@@ -225,7 +225,8 @@
 								<descriptor>src/assembly/createDirectories.xml</descriptor>
 								<descriptor>src/assembly/deleteFiles.xml</descriptor>
 								<descriptor>src/assembly/removeDirectories.xml</descriptor>
-								<descriptor>src/assembly/uploadFiles.xml</descriptor>
+								<descriptor>src/assembly/uploadDocumentsToDirectory.xml</descriptor>
+								<descriptor>src/assembly/uploadFilesToDirectory.xml</descriptor>
 								<descriptor>src/assembly/downloadFilesToDocuments.xml</descriptor>
 								<descriptor>src/assembly/downloadFilesToDirectory.xml</descriptor>
 							</descriptors>

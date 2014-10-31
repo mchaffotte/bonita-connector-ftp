@@ -28,7 +28,7 @@ import org.bonitasoft.engine.connector.ConnectorException;
 /**
  * @author Matthieu Chaffotte
  */
-public class UploadFilesConnector extends FTPClientConnector {
+public class UploadDocumentsToDirectoryConnector extends FTPClientConnector {
 
     public static final String DIRECTORY_PATH = "directoryPath";
 
@@ -52,7 +52,7 @@ public class UploadFilesConnector extends FTPClientConnector {
 
     private boolean uploadDocument(final String documentName) throws ConnectorException, IOException {
         final Document document = getDocument(documentName);
-        final InputStream inputStream = getDocumentContent(document);
+        final InputStream inputStream = getDocumentInputStream(document);
         try {
             final String fileName = getFileName(document);
             return getFTPClient().storeFile(fileName, inputStream);
@@ -84,7 +84,7 @@ public class UploadFilesConnector extends FTPClientConnector {
         }
     }
 
-    private InputStream getDocumentContent(final Document document) throws ConnectorException {
+    private InputStream getDocumentInputStream(final Document document) throws ConnectorException {
         final ProcessAPI processAPI = getAPIAccessor().getProcessAPI();
         try {
             if (document.hasContent()) {

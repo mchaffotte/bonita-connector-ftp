@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definition:ConnectorDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1">
+
+	<id>ftp-uploadDocumentsToDirectory</id>
+	<version>1.0.0</version>
+
+	<icon>ftp.png</icon>
+
+	<category id="ftp"  icon="ftp.png" />
+
+	<input name="hostname" type="java.lang.String" defaultValue="localhost" mandatory="true" />
+	<input name="port" type="java.lang.Integer" defaultValue="21" mandatory="true" />
+	<input name="userName" type="java.lang.String" />
+	<input name="password" type="java.lang.String" />
+	<input name="transferType" type="java.lang.String" defaultValue="Binary" />
+	<input name="transferMode" type="java.lang.String" defaultValue="Passive" />
+	<input name="ftps" type="java.lang.Boolean" defaultValue="false" />
+	<input name="securityProtocol" type="java.lang.String" defaultValue="TLS" />
+	<input name="securityMode" type="java.lang.String" defaultValue="Implicit" />
+	<input name="directoryPath" type="java.lang.String" />
+	<input name="documents" type="java.util.List" />
+
+	<output name="status" type="java.util.Map" />
+
+	<page id="connectionConfigPage">
+		<widget id="hostname" inputName="hostname" xsi:type="definition:Text" />
+		<widget id="port" inputName="port" xsi:type="definition:Text" />
+		<widget id="authentication" optional="true" xsi:type="definition:Group">
+			<widget id="userName" inputName="userName" xsi:type="definition:Text" />
+			<widget id="password" inputName="password" xsi:type="definition:Password" />
+		</widget>
+		<widget id="transferType" inputName="transferType" xsi:type="definition:RadioGroup">
+			<choices>ASCII</choices>
+			<choices>Binary</choices>
+		</widget>
+		<widget id="transferMode" inputName="transferMode" xsi:type="definition:RadioGroup">
+			<choices>Active</choices>
+			<choices>Passive</choices>
+		</widget>
+		<widget id="security" optional="true" xsi:type="definition:Group">
+			<widget id="ftps" inputName="ftps" xsi:type="definition:Checkbox" />
+			<widget id="securityProtocol" inputName="securityProtocol" xsi:type="definition:Select">
+				<items>TLS</items>
+			</widget>
+			<widget id="securityMode" inputName="securityMode" xsi:type="definition:RadioGroup">
+				<choices>Implicit</choices>
+				<choices>Explicit</choices>
+			</widget>
+		</widget>
+	</page>
+	<page id="contentPage">
+		<widget id="directoryPath" inputName="directoryPath" xsi:type="definition:Text" />
+		<widget id="documents" inputName="documents" xsi:type="definition:List" />
+	</page>
+</definition:ConnectorDefinition>
