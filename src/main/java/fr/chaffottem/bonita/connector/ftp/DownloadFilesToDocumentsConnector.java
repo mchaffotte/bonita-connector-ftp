@@ -26,7 +26,7 @@ import org.bonitasoft.engine.connector.ConnectorException;
 /**
  * @author Matthieu Chaffotte
  */
-public class DownloadFilesConnector extends FTPClientConnector {
+public class DownloadFilesToDocumentsConnector extends FTPClientConnector {
 
     public static final String FILE_PATHS = "filePaths";
 
@@ -34,7 +34,7 @@ public class DownloadFilesConnector extends FTPClientConnector {
 
     private final Tika tika;
 
-    public DownloadFilesConnector() {
+    public DownloadFilesToDocumentsConnector() {
         tika = new Tika();
     }
 
@@ -54,11 +54,7 @@ public class DownloadFilesConnector extends FTPClientConnector {
     }
 
     private String getFileName(final String path) {
-        int lastIndexOf = path.lastIndexOf('\\');
-        if (lastIndexOf == -1) {
-            lastIndexOf = path.lastIndexOf('/');
-        }
-        return path.substring(lastIndexOf + 1);
+        return path.substring(path.lastIndexOf('/') + 1);
     }
 
     private byte[] downloadFile(final String remotePath) throws IOException {

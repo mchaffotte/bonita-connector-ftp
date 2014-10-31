@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definition:ConnectorDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1">
 
-	<id>ftp-downloadFiles</id>
+	<id>ftp-downloadFilesToDirectory</id>
 	<version>1.0.0</version>
 
 	<icon>ftp.png</icon>
@@ -17,9 +17,8 @@
 	<input name="ftps" type="java.lang.Boolean" defaultValue="false" />
 	<input name="securityProtocol" type="java.lang.String" defaultValue="TLS" />
 	<input name="securityMode" type="java.lang.String" defaultValue="Implicit" />
+	<input name="directoryPath" type="java.lang.String" />
 	<input name="filePaths" type="java.util.List" />
-
-	<output name="documentValues" type="java.util.List" />
 
 	<page id="connectionConfigPage">
 		<widget id="hostname" inputName="hostname" xsi:type="definition:Text" />
@@ -48,6 +47,7 @@
 		</widget>
 	</page>
 	<page id="contentPage">
+		<widget id="directoryPath" inputName="directoryPath" xsi:type="definition:Text" />
 		<widget id="filePaths" inputName="filePaths" xsi:type="definition:List" />
 	</page>
 </definition:ConnectorDefinition>

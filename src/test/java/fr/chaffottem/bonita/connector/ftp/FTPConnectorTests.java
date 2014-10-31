@@ -23,8 +23,9 @@ import org.junit.runners.Suite.SuiteClasses;
     DeleteFilesConnectorTest.class,
     RemoveDirectoriesConnectorTest.class,
     CreateDirectoriesConnectorTest.class,
-    UploadFilesConnectorTest.class,
-    DownloadFilesConnectorTest.class,
+    UploadDocumentsToDirectoryConnectorTest.class,
+    DownloadFilesToDocumentsConnectorTest.class,
+    DownloadFilesToDirectoryConnectorTest.class,
     FTPSIT.class
 })
 public class FTPConnectorTests {

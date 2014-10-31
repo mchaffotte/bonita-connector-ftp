@@ -37,7 +37,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DownloadFilesConnectorTest extends FTPClientConnectorTest {
+public class DownloadFilesToDocumentsConnectorTest extends FTPClientConnectorTest {
 
     @Mock
     private APIAccessor apiAccessor;
@@ -77,7 +77,7 @@ public class DownloadFilesConnectorTest extends FTPClientConnectorTest {
 
     @Override
     public FTPClientConnector getFTPClientConnector() {
-        final DownloadFilesConnector connector = new DownloadFilesConnector();
+        final DownloadFilesToDocumentsConnector connector = new DownloadFilesToDocumentsConnector();
         connector.setAPIAccessor(apiAccessor);
         connector.setExecutionContext(executionContext);
         return connector;
@@ -102,14 +102,14 @@ public class DownloadFilesConnectorTest extends FTPClientConnectorTest {
         parameters.put(FTPClientConnector.TRANSFER_TYPE, "ascii");
         final List<String> filePaths = new ArrayList<String>();
         filePaths.add("docs/file1.txt");
-        parameters.put(DownloadFilesConnector.FILE_PATHS, filePaths);
+        parameters.put(DownloadFilesToDocumentsConnector.FILE_PATHS, filePaths);
         final FileEntry file = getFile("c:\\share\\docs\\file1.txt");
         final byte[] fileContent = getFileContent(file);
         final DocumentValue expected = new DocumentValue(fileContent, "text/plain", "file1.txt");
 
         final Map<String, Object> execute = execute(parameters);
 
-        final List<DocumentValue> docs = (List<DocumentValue>) execute.get(DownloadFilesConnector.DOCUMENT_VALUES);
+        final List<DocumentValue> docs = (List<DocumentValue>) execute.get(DownloadFilesToDocumentsConnector.DOCUMENT_VALUES);
         assertThat(docs.get(0)).isEqualTo(expected);
     }
 
