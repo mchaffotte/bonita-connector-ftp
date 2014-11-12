@@ -1,5 +1,6 @@
 /**
- * Copyright (C) 2014 Matthieu Chaffotte
+ * Copyright (C) 2014 BonitaSoft S.A.
+ * BonitaSoft, 32 rue Gustave Eiffel - 38000 Grenoble
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
