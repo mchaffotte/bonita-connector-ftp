@@ -18,13 +18,6 @@
 
 	<fileSets>
 		<fileSet>
-			<directory>target</directory>
-			<outputDirectory>classpath</outputDirectory>
-			<includes>
-				<include>*.jar</include>
-			</includes>
-		</fileSet>
-		<fileSet>
 			<directory>studio</directory>
 			<outputDirectory />
 			<includes>
