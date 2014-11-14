@@ -6,6 +6,12 @@
 	<version>0.5.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
+	<scm>
+		<connection>scm:git:http://github.com/mchaffotte/bonita-connector-ftp.git</connection>
+		<developerConnection>scm:git:git@github.com:mchaffotte/bonita-connector-ftp.git</developerConnection>
+		<url>http://github.com/mchaffotte/bonita-connector-ftp</url>
+	</scm>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
