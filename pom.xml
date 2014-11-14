@@ -3,14 +3,14 @@
 
 	<groupId>fr.mchaffotte.bonita.connectors</groupId>
 	<artifactId>bonita-connector-ftp</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<scm>
 		<connection>scm:git:http://github.com/mchaffotte/bonita-connector-ftp.git</connection>
 		<developerConnection>scm:git:git@github.com:mchaffotte/bonita-connector-ftp.git</developerConnection>
 		<url>http://github.com/mchaffotte/bonita-connector-ftp</url>
-	  <tag>bonita-connector-ftp-1.0.0</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<properties>
